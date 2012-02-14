@@ -1,0 +1,10 @@
+<phpunit
+        colors="true"
+        verbose="true"
+        bootstrap="autoloader.php">
+    <testsuites>
+        <testsuite name="MonkeyCoder">
+            <directory>./unittests/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

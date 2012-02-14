@@ -36,7 +36,7 @@ class ClassModel
 
     public function getTemplateFile() {}
 
-    public function getCodingStandard() {}
+    public function getCodingStyle() {}
 
     public function render() {}
 }
