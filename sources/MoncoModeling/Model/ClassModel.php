@@ -4,6 +4,30 @@ namespace Monco\Modeling\Model;
 
 class ClassModel
 {
+    const CLASS_TYPE_INTERFACE  = 'interface';
+    const CLASS_TYPE_ABSTRACT   = 'abstract';
+    const CLASS_TYPE_CONCRETE   = 'concrete';
+
+    private $_id;
+
+    private $_fullClassName;
+
+    private $_ClassType;
+
+    private $_destinationDirectory;
+
+    private $_namespaceDestinationDirectory;
+
+    private $_subdirectory;
+
+    private $_parentClass;
+
+    private $_interfaces;
+
+    private $_templateFile;
+
+    private $_codingStyle;
+
     public function getId() {}
 
     public function getFullClassName() {}

@@ -8,6 +8,16 @@ class FunctionModel
     const ACCESSOR_PROTECTED    = 'protected';
     const ACCESSOR_PRIVATE      = 'private';
 
+    private $_accessor;
+
+    private $_functionName;
+
+    private $_parameters;
+
+    private $_templateFile;
+
+    private $_codingStyle;
+
     public function getAccessor() {}
 
     public function getFunctionName() {}
@@ -18,7 +28,7 @@ class FunctionModel
 
     public function getTemplateFile() {}
 
-    public function getCodingStandard() {}
+    public function getCodingStyle() {}
 
     public function render() {}
 }
