@@ -1,22 +1,26 @@
 <?php
 
-return array('class' => array(
-    'properties' => array(
-        'id' => array(
-            'type' => 'int',
-            'options' => array(
-                'setter' => 'scalarsetter',
-                'getter' => 'scalargetter',
-                'dbfield' => 'id',
-            )
-        ),
-        'name' => array(
-            'type' => 'string',
-            'options' => array(
-                'setter' => 'scalarsetter',
-                'getter' => 'scalargetter',
-                'dbfield' => 'name',
-            )
+return array(
+    array(
+        'id' => 'id',
+        'type' => 'int',
+        'options' => array(
+            'dbfield' => 'id',
+        )
+    ),
+    array(
+        'id' => 'default:',
+        'name' => 'name',
+        'type' => 'string',
+        'options' => array(
+            'dbfield' => 'name',
+        )
+    ),
+    array(
+        'id' => 'user',
+        'type' => 'id:monco.model.user',
+        'options' => array(
+            'dbfield' => 'name',
         )
     )
-));
+);
