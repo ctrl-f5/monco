@@ -115,7 +115,7 @@ class Property
      */
     public function getNameCamelCased()
     {
-        return $this->_name;
+        return lcfirst($this->_name);
     }
 
     /**
@@ -123,6 +123,57 @@ class Property
      */
     public function getNamePascalCased()
     {
-        return $this->_name;
+        return ucfirst($this->_name);
+    }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function getOption($key)
+    {
+        if ($this->hasOption($key)) {
+            return $this->_options[$key];
+        }
+        return null;
+    }
+
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public function hasOption($key)
+    {
+        return array_key_exists($key, $this->_options);
+    }
+
+    /**
+     * @param array $data
+     * @param string|false $key false to merge options root array
+     * @throws \Exception
+     * @return Property
+     */
+    public function mergeOptions($data, $key)
+    {
+        if (is_array($data)) {
+            if ($key !== false) {
+                if ($this->hasOption($key)) {
+                    $this->_options[$key] = array_merge(
+                        $this->_options,
+                        $data
+                    );
+                } else {
+                    throw new \Exception("key '$key' not found when merging options");
+                }
+            } else {
+                $this->_options = array_merge(
+                    $this->_options,
+                    $data
+                );
+            }
+        } else {
+            throw new \Exception("$data must be of type array");
+        }
+        return $this;
     }
 }

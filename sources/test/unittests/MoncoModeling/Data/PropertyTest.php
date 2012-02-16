@@ -24,23 +24,23 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $this->_model = null;
     }
 
-    public function testCanParseData()
+    public function testCanParseDataWithMinimumAmountKeys()
     {
         $data = array(
             'id' => 'name',
-            'type' => 'string',
-            'options' => array(
-                'dbfield' => 'name',
-            )
+            'type' => 'string'
         );
 
         $this->_model->parseData($data);
 
         $this->assertEquals($data['id'], $this->_model->getId());
         $this->assertEquals($data['type'], $this->_model->getType());
-        $this->assertEquals($data['options'], $this->_model->getOptions());
+        $this->assertEquals(array(), $this->_model->getOptions());
         $this->assertEquals($data['id'], $this->_model->getName());
+    }
 
+    public function testCanParseDataWithNameKey()
+    {
         $data = array(
             'id' => 'theID',
             'name' => 'testName',
@@ -51,7 +51,42 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($data['id'], $this->_model->getId());
         $this->assertEquals($data['type'], $this->_model->getType());
-        $this->assertEquals(array(), $this->_model->getOptions());
         $this->assertEquals($data['name'], $this->_model->getName());
+    }
+
+    public function testCanParseDataWithOptions()
+    {
+        $data = array(
+            'id' => 'theID',
+            'type' => 'id:MyTeference',
+            'options' => array(
+                'dbField' => 'myfield'
+            )
+        );
+
+        $this->_model->parseData($data);
+
+        $this->assertEquals($data['id'], $this->_model->getId());
+        $this->assertEquals($data['type'], $this->_model->getType());
+        $this->assertEquals($data['id'], $this->_model->getName());
+        $this->assertEquals($data['options'], $this->_model->getOptions());
+    }
+
+    public function testCanGetCamelCasedName()
+    {
+        $this->_model->setName('testName');
+        $this->assertEquals('testName', $this->_model->getNameCamelCased());
+
+        $this->_model->setName('TestName');
+        $this->assertEquals('testName', $this->_model->getNameCamelCased());
+    }
+
+    public function testCanGetPascalCasedName()
+    {
+        $this->_model->setName('testName');
+        $this->assertEquals('TestName', $this->_model->getNamePascalCased());
+
+        $this->_model->setName('TestName');
+        $this->assertEquals('TestName', $this->_model->getNamePascalCased());
     }
 }
