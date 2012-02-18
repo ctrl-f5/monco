@@ -4,7 +4,7 @@ namespace Monco\Modeling\Parser;
 
 class Repo
 {
-    private $_repo;
+    private $_repo = array();
 
     public function set($key, $object)
     {

@@ -18,13 +18,14 @@ class Parser
         } else {
             //TODO: find, parse and return the model
         }
-        //TODO: throw exception
+        throw new \Exception("model with id: $id was not found");
     }
 
     public function parseModel($data)
     {
         $default = array(
             'id' => null,
+            'name' => null,
             'abstract' => null,
             'extends' => null,
             'namespace' => null,
@@ -39,21 +40,37 @@ class Parser
         if ($data['id'] == null) {
             throw new \Exception('id is a required field');
         }
+        if ($data['name'] == null) {
+            throw new \Exception('name is a required field');
+        }
+
         //check if model with id exists in repo
         if (!$this->_modelRepo->hasKey($data['id'])) {
 
-            //TODO: set all properties except 'extends'
+            //set all properties except 'extends'
+            $classModel = new \Monco\Modeling\Model\ClassModel();
+            $classModel->setId($data['id'])
+                ->setClassName($data['name'])
+                ->setNamespace($data['namespace'])
+                ->setSubNamespace($data['subNamespace'])
+                ->setDirectory($data['dir'])
+                ->setSubdirectory($data['subDir'])
+                ->setTemplateFile($data['tmpl']);
 
             //put the model in the repo
             $this->_modelRepo->set($data['id'], $classModel);
 
             //fetch the extends model and set it to the classModel in the repo
             if ($data['extends'] !== null) {
-                //TODO: catch exception
-                $model = $this->getModel($data['extends']);
-                //TODO: set extends $model in $classModel
+                try {
+                    $model = $this->getModel($data['extends']);
+                    $classModel->setParent($model);
+                } catch (\Exception $e) {
+                    throw $e; //TODO: should it do something? when and why?
+                }
             }
         }
+
         return $this->_modelRepo->get($data['id']);
     }
 }
