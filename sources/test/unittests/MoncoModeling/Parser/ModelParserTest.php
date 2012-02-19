@@ -2,16 +2,16 @@
 
 namespace Test\Monco\Modeling\Parser;
 
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ModelParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Monco\Modeling\Parser\Parser
+     * @var \Monco\Modeling\Parser\ModelParser
      */
     protected $_parser;
 
     public function setUp()
     {
-        $this->_parser = new \Monco\Modeling\Parser\Parser(
+        $this->_parser = new \Monco\Modeling\Parser\ModelParser(
             new \Monco\Modeling\Parser\Repo()
         );
     }

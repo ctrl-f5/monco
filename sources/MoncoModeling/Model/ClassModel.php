@@ -161,6 +161,11 @@ class ClassModel
         return $this->_subNamespace;
     }
 
+    public function getFullNamespace()
+    {
+        return $this->getNamespace().$this->getSubNamespace();
+    }
+
     /**
      * @param string $subdirectory
      * @return ClassModel

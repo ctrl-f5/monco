@@ -2,7 +2,7 @@
 
 namespace Monco\Modeling\Parser;
 
-class Parser
+class ModelParser
 {
     private $_modelRepo;
 

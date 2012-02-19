@@ -1,7 +1,7 @@
 <?php /** @var $class \Monco\Modeling\Model\ClassModel */ ?>
 <?php /** @var $properties \Monco\Modeling\Data\Property[] */ ?>
 
-namespace <?php echo $class->getNamespace().$class->getSubNamespace(); ?>;
+namespace <?php echo $class->getFullNamespace() ?>;
 
 class <?php $class->getClassName() ?> extends \My\Domain\Model
 {
