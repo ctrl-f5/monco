@@ -6,9 +6,13 @@ spl_autoload_register(function ($name) {
     $include = function ($class, $dir) {
         $file =
             $dir.
-            str_replace('\\', '/', $class).
+            str_replace('\\', DIRECTORY_SEPARATOR, $class).
             '.php';
-        if (file_exists($file)) require_once $file;
+        if (file_exists($file)) {
+            require_once $file;
+            return true;
+        }
+        return false;
     };
 
     $map = array(
@@ -20,7 +24,25 @@ spl_autoload_register(function ($name) {
     );
     foreach ($map as $namespace => $d) {
         if (strpos($name, $namespace) !== false) {
-            $include(substr($name, strlen($namespace)+1), $d);
+            if ($include(substr($name, strlen($namespace)+1), $d)) {
+                return;
+            }
         }
+    }
+
+    $includeDir = get_include_path();
+    $includeDir = explode(PATH_SEPARATOR, $includeDir);
+    foreach ($includeDir as $d) {
+        $file = $d.DIRECTORY_SEPARATOR.str_replace(array('\\', '_'), DIRECTORY_SEPARATOR, $name).'.php';
+        if (file_exists($file)) {
+            require_once $file;
+            return;
+        }
+        $file = $d.DIRECTORY_SEPARATOR.str_replace(array('\\', '_'), DIRECTORY_SEPARATOR, $name).'.filter.php';
+        if (file_exists($file)) {
+            require_once $file;
+            return;
+        }
+
     }
 });

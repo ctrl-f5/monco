@@ -10,13 +10,13 @@ class <?php $class->getClassName() ?> extends \My\Domain\Model
      * @var <?php echo $p->getType(); ?>
      */
     private $_<?php echo $p->getNameCamelCased(); ?>;
-    <?php endforeach; ?>
 
-    <?php foreach ($properties as $p): ?>
+    <?php endforeach; 
+    foreach ($properties as $p): ?>
     /**
      * @return <?php echo $p->getType(); ?>
      */
-    public function get<?php echo $p->getNamePascalCased(); ?>()
+    <?php echo $p->getGetterDeclaration(); ?>
     {
         return $this->_<?php echo $p->getNameCamelCased(); ?>;
     }
@@ -24,9 +24,9 @@ class <?php $class->getClassName() ?> extends \My\Domain\Model
     /**
      * @return <?php echo $class->getClassName(); ?>
      */
-    public function set<?php echo $p->getNamePascalCased(); ?>($<?php echo $p->getNameCamelCased(); ?>)
+    <?php echo $p->getSetterDeclaration(); ?>
     {
-        $this->_<?php echo $p->getNameCamelCased(); ?> = $<?php echo $p->getNameCamelCased(); ?>;
+        $this->_<?php echo $p->getNameCamelCased(); ?> = <?php echo $p->getVariableDeclaration(); ?>;
         return $this;
     }
 
