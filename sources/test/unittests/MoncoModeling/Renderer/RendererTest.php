@@ -52,6 +52,6 @@ class RendererTest extends \PHPUnit_Framework_TestCase
         $properties[] = new \Monco\Modeling\Data\Property();
         $properties[1]->parseData($data);
 
-        echo $this->_renderer->renderClass($model, $properties);
+        $this->assertTrue(is_string($this->_renderer->renderClass($model, $properties)));
     }
 }

@@ -12,26 +12,19 @@ class Renderer
             include($class->getTemplateFile());
             $content = \ob_get_contents();
             \ob_end_clean();
-            $beauty = new \PHP_Beautifier();
-            $beauty->setInputString($content);
-            $beauty->addFilter(
-                'NewLines',
-                array(
-                    'before' => 'T_DOC_COMMENT',
-                    'after' => 'T_CLASS'
-                )
-            );
-            $beauty->addFilter(
-                'NewLines',
-                array(
-                    'before' => 'T_DOC_COMMENT',
-                    'after' => 'T_CLASS'
-                )
-            );
+            if (\class_exists('PHP_Beautifier')) {
+                $beauty = new \PHP_Beautifier();
+                $beauty->setInputString($content);
+                $beauty->addFilter(
+                    'NewLines',
+                    array(
+                        'after' => 'T_DOC_COMMENT'
+                    )
+                );
+                $beauty->process();
+                $content = $beauty->get();
+            }
 
-            $beauty->process();
-            return $beauty->get();
-            
             return $content;
         };
 

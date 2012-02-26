@@ -140,6 +140,9 @@ class ClassModel
      */
     public function getNamespace()
     {
+        if (!$this->_namespace && $this->hasParent()) {
+            return $this->getParent()->getNamespace();
+        }
         return $this->_namespace;
     }
 
@@ -158,6 +161,9 @@ class ClassModel
      */
     public function getSubNamespace()
     {
+        if (!$this->_subNamespace && $this->hasParent()) {
+            return $this->getParent()->getSubNamespace();
+        }
         return $this->_subNamespace;
     }
 
@@ -181,6 +187,9 @@ class ClassModel
      */
     public function getSubdirectory()
     {
+        if (!$this->_subdirectory && $this->hasParent()) {
+            return $this->getParent()->getSubdirectory();
+        }
         return $this->_subdirectory;
     }
 
@@ -199,6 +208,9 @@ class ClassModel
      */
     public function getTemplateFile()
     {
+        if (!$this->_templateFile && $this->hasParent()) {
+            return $this->getParent()->getTemplateFile();
+        }
         return $this->_templateFile;
     }
 
@@ -218,6 +230,11 @@ class ClassModel
     public function getParent()
     {
         return $this->_parent;
+    }
+
+    public function hasParent()
+    {
+        return $this->_parent instanceof ClassModel;
     }
 
     public function render($properties)
