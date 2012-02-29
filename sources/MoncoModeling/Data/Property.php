@@ -135,7 +135,6 @@ class Property
         return $this->_accessor;
     }
 
-
     /**
      * @return string
      */
@@ -197,7 +196,6 @@ class Property
     {
         return array_key_exists($key, $this->_options);
     }
-
 
     /**
      * @param array $data

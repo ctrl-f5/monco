@@ -15,7 +15,9 @@ class ConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testConstruction()
     {
-        $model = new \Monco\Config\Config();
+        $model = new \Monco\Config\Config(
+            new \Monco\Config\ArrayAdapter()
+        );
         $this->assertInstanceOf('\\Monco\\Config\\Config', $model);
     }
 }

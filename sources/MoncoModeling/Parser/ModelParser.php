@@ -6,9 +6,40 @@ class ModelParser
 {
     private $_modelRepo;
 
-    public function __construct(Repo $repo)
+    private $_modelDirectories;
+
+    public function __construct(Repo $repo = null)
+    {
+        if ($repo) $this->_modelRepo = $repo;
+
+        $this->_modelDirectories = explode(PATH_SEPARATOR, get_include_path());
+    }
+
+    public function setModelRepository(Repo $repo)
     {
         $this->_modelRepo = $repo;
+        return $this;
+    }
+
+    public function getModelRepository()
+    {
+        return $this->_modelRepo;
+    }
+
+    public function getModelDirectories()
+    {
+        return $this->_modelDirectories;
+    }
+
+    public function setModelDirectories(array $directories)
+    {
+        $this->_modelDirectories = $directories;
+        return $this;
+    }
+
+    public function addModelDirectory($dir)
+    {
+        $this->_modelDirectories[] = $dir;
     }
 
     public function getModel($id)

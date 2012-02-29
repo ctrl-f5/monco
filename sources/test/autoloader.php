@@ -16,11 +16,10 @@ spl_autoload_register(function ($name) {
     };
 
     $map = array(
-        'Monco\\Config' => $dir.'MoncoConfig/',
         'Monco\\Modeling' => $dir.'MoncoModeling/',
         'Monco\\Renderer' => $dir.'MoncoRenderer/',
-        'Monco\\SharedLib' => $dir.'SharedLib/',
         'Monco\\Cli' => $dir.'MoncoCli/',
+        'Monco' => $dir.'MoncoSharedLib/',
     );
     foreach ($map as $namespace => $d) {
         if (strpos($name, $namespace) !== false) {
