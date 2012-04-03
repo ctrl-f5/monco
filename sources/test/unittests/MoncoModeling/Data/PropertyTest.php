@@ -90,25 +90,6 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('TestName', $this->_model->getNamePascalCased());
     }
 
-    public function testCanGetVariableDeclaration()
-    {
-        $data = array(
-            'id' => 'test',
-            'type' => 'string'
-        );
-        $this->_model->parseData($data);
-
-        $this->assertEquals('$test', $this->_model->getVariableDeclaration());
-        
-        $data = array(
-            'id' => 'TestId',
-            'type' => 'string'
-        );
-        $this->_model->parseData($data);
-
-        $this->assertEquals('$testId', $this->_model->getVariableDeclaration());
-    }
-
     public function testCanGetGetterDeclaration()
     {
         $data = array(
@@ -117,7 +98,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         );
         $this->_model->parseData($data);
 
-        $this->assertEquals('public function getTest()', $this->_model->getGetterDeclaration());
+        $this->assertEquals('function getTest()', $this->_model->getGetterDeclaration());
 
         $data = array(
             'id' => 'TestId',
@@ -125,7 +106,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         );
         $this->_model->parseData($data);
 
-        $this->assertEquals('public function getTestId()', $this->_model->getGetterDeclaration());
+        $this->assertEquals('function getTestId()', $this->_model->getGetterDeclaration());
     }
 
     public function testCanGetSetterDeclaration()
@@ -136,7 +117,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         );
         $this->_model->parseData($data);
 
-        $this->assertEquals('public function setTest($test)', $this->_model->getSetterDeclaration());
+        $this->assertEquals('function setTest($test)', $this->_model->getSetterDeclaration());
 
         $data = array(
             'id' => 'TestId',
@@ -144,7 +125,7 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         );
         $this->_model->parseData($data);
 
-        $this->assertEquals('public function setTestId($testId)', $this->_model->getSetterDeclaration());
+        $this->assertEquals('function setTestId($testId)', $this->_model->getSetterDeclaration());
     }
 
 }

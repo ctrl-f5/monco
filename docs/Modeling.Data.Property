@@ -1,0 +1,12 @@
+== Model Data Property
+
+- id: string
+    a string identifier for the property
+
+- type: string
+    the type of the property
+    if the type referred to is an object, it may be preceded by "obj:"
+    e.g.: "obj:\ArrayObject"
+
+- options: array
+    an array of arbitrary options

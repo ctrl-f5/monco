@@ -24,11 +24,6 @@ class Property
      */
     private $_name;
 
-    /**
-     * @var string
-     */
-    private $_accessor;
-
     public function __construct($data = array())
     {
         $this->parseData($data);
@@ -44,7 +39,6 @@ class Property
             $default = array(
                 'id' => null,
                 'type' => null,
-                'accessor' => 'public',
                 'options' => null
             );
 
@@ -58,8 +52,7 @@ class Property
                 ->setId($data['id'])
                 ->setType($data['type'])
                 ->setOptions($data['options'])
-                ->setName($data['name'])
-                ->setAccessor($data['accessor']);
+                ->setName($data['name']);
 
         }
 
@@ -118,24 +111,6 @@ class Property
     }
 
     /**
-     * @param $accessor
-     * @return Property
-     */
-    public function setAccessor($accessor)
-    {
-        $this->_accessor = (string)$accessor;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAccessor()
-    {
-        return $this->_accessor;
-    }
-
-    /**
      * @return string
      */
     public function getNameCamelCased()
@@ -153,27 +128,23 @@ class Property
 
     /**
      * Returns the properties getter declaration signature
+     *
+     * @return string
      */
     public function getGetterDeclaration()
     {
-        return $this->getAccessor().' function get'.$this->getNamePascalCased().'()';
+        return 'function get'.$this->getNamePascalCased().'()';
     }
 
     /**
      * Returns the properties setter declaration signature
+     *
+     * @return string
      */
     public function getSetterDeclaration()
     {
-        return $this->getAccessor().' function set'.$this->getNamePascalCased().'('.
-            $this->getvariableDeclaration().')';
-    }
-
-    /**
-     * Returns the properties variable declaration
-     */
-    public function getVariableDeclaration()
-    {
-        return '$'.$this->getNameCamelCased();
+        return 'function set'.$this->getNamePascalCased().'($'.
+            $this->getNameCamelCased().')';
     }
 
     /**

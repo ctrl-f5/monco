@@ -1,0 +1,27 @@
+== ClassModel Properties
+
+- id: string
+    unique identifier for this model, this string is used to refer to
+    from within other configuration settings.
+
+- extends: string
+    the id of a ClassModel that should be set as the parent of this one.
+    other properties may be merged from the parent.
+
+- abstract: bool
+    defines wether the ClassModel is abstract, and can thus not be rendered.
+
+- namespace: string
+    defines the namespace of the class being modeled
+    if the ClassModel has a parent the namespace will be prefixed
+    by the parent's, unless it starts with a backslash.
+
+- dir: string
+    defines the directory where the generated classes will end up.
+    if the ClassModel has a parent his dir will be prefixed by the
+    parent's, unless it starts with a DIRECTORY_SEPARATOR.
+
+- tmpl: string
+    defines the template file that should be used for rendering the class.
+    if the ClassModel has a parent his tmpl will be prefixed by the parent's,
+    unless it starts with a DIRECTORY_SEPARATOR.

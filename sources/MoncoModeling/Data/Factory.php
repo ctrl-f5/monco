@@ -9,7 +9,7 @@ class Factory extends \Monco\Factory\SingletonFactory
         $defaultOptions = array(
             'monco.modeling.property.class' => '\\Monco\\Modeling\\Data\\Property'
         );
-        
+
         return parent::_getDefaultConfigOptions()
             ->load($defaultOptions, true);
     }

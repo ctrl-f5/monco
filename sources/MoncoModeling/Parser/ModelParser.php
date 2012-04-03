@@ -60,9 +60,7 @@ class ModelParser
             'abstract' => null,
             'extends' => null,
             'namespace' => null,
-            'subNamespace' => null,
             'dir' => null,
-            'subDir' => null,
             'tmpl' => null,
         );
 
@@ -83,9 +81,7 @@ class ModelParser
             $classModel->setId($data['id'])
                 ->setClassName($data['name'])
                 ->setNamespace($data['namespace'])
-                ->setSubNamespace($data['subNamespace'])
                 ->setDirectory($data['dir'])
-                ->setSubdirectory($data['subDir'])
                 ->setTemplateFile($data['tmpl']);
 
             //put the model in the repo

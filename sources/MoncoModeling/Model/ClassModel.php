@@ -31,17 +31,7 @@ class ClassModel
     /**
      * @var string
      */
-    private $_subdirectory;
-
-    /**
-     * @var string
-     */
     private $_namespace;
-
-    /**
-     * @var string
-     */
-    private $_subNamespace;
 
     /**
      * @var string
@@ -107,6 +97,17 @@ class ClassModel
         return $this->_directory;
     }
 
+    public function getFullDirectory()
+    {
+        $dir = $this->getDirectory();
+        if (strpos($dir, DIRECTORY_SEPARATOR) === 0) {
+            return $dir;
+        } elseif ($this->getParent()) {
+            $dir = $this->getParent()->getFullDirectory().$dir;
+        }
+        return $dir;
+    }
+
     /**
      * @param int $id
      * @return ClassModel
@@ -140,57 +141,18 @@ class ClassModel
      */
     public function getNamespace()
     {
-        if (!$this->_namespace && $this->hasParent()) {
-            return $this->getParent()->getNamespace();
-        }
         return $this->_namespace;
-    }
-
-    /**
-     * @param string $subNamespace
-     * @return ClassModel
-     */
-    public function setSubNamespace($subNamespace)
-    {
-        $this->_subNamespace = $subNamespace;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSubNamespace()
-    {
-        if (!$this->_subNamespace && $this->hasParent()) {
-            return $this->getParent()->getSubNamespace();
-        }
-        return $this->_subNamespace;
     }
 
     public function getFullNamespace()
     {
-        return $this->getNamespace().$this->getSubNamespace();
-    }
-
-    /**
-     * @param string $subdirectory
-     * @return ClassModel
-     */
-    public function setSubdirectory($subdirectory)
-    {
-        $this->_subdirectory = $subdirectory;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSubdirectory()
-    {
-        if (!$this->_subdirectory && $this->hasParent()) {
-            return $this->getParent()->getSubdirectory();
+        $ns = $this->getNamespace();
+        if (strpos($ns, '\\') === 0) {
+            return $ns;
+        } elseif ($this->getParent()) {
+            $ns = $this->getParent()->getFullNamespace().'\\'.$ns;
         }
-        return $this->_subdirectory;
+        return $ns;
     }
 
     /**
@@ -215,7 +177,7 @@ class ClassModel
     }
 
     /**
-     * @param ClassModel $extends
+     * @param ClassModel $parent
      * @return ClassModel
      */
     public function setParent($parent)
@@ -235,10 +197,5 @@ class ClassModel
     public function hasParent()
     {
         return $this->_parent instanceof ClassModel;
-    }
-
-    public function render($properties)
-    {
-
     }
 }

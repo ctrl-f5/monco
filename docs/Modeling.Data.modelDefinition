@@ -1,0 +1,8 @@
+== Model Data Definition
+
+the definition of model data can be represented by an array.
+
+this array has the following mandatory keys:
+
+- properties: array
+    an array of properties, refer to the Modeling.Data.Property file
