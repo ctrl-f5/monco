@@ -28,18 +28,18 @@ class ModelParserTest extends \PHPUnit_Framework_TestCase
             'name' => 'Entity',
             'namespace' => 'Container',
             'dir' => 'container',
-            'tmpl' => '/my/file.php',
+            'tmpl' => 'file:/my/file.php',
         );
 
-        /** @var $model \Monco\Modeling\Model\ClassModel */
+        /** @var $model \Monco\Modeling\File\ClassModel */
         $model = $this->_parser->parseModel($data);
 
-        $this->assertInstanceOf('\\Monco\\Modeling\\Model\\ClassModel', $model);
+        $this->assertInstanceOf('\\Monco\\Modeling\\File\\ClassModel', $model);
         $this->assertSame($data['id'], $model->getId());
         $this->assertSame($data['name'], $model->getClassName());
         $this->assertSame($data['namespace'], $model->getNamespace());
         $this->assertSame($data['dir'], $model->getDirectory());
-        $this->assertSame($data['tmpl'], $model->getTemplateFile());
+        $this->assertSame(str_replace('file:', '', $data['tmpl']), $model->getTemplate()->getTemplateFile());
         $this->assertSame(NULL, $model->getParent());
     }
 
@@ -50,18 +50,18 @@ class ModelParserTest extends \PHPUnit_Framework_TestCase
             'name' => 'Parent',
             'namespace' => 'Root',
             'dir' => 'root',
-            'tmpl' => '/my/rootfile.php'
+            'tmpl' => 'file:/my/rootfile.php'
         );
 
-        /** @var $parent \Monco\Modeling\Model\ClassModel */
+        /** @var $parent \Monco\Modeling\File\ClassModel */
         $parent = $this->_parser->parseModel($parentData);
 
-        $this->assertInstanceOf('\\Monco\\Modeling\\Model\\ClassModel', $parent);
+        $this->assertInstanceOf('\\Monco\\Modeling\\File\\ClassModel', $parent);
         $this->assertSame($parentData['id'], $parent->getId());
         $this->assertSame($parentData['name'], $parent->getClassName());
         $this->assertSame($parentData['namespace'], $parent->getNamespace());
         $this->assertSame($parentData['dir'], $parent->getDirectory());
-        $this->assertSame($parentData['tmpl'], $parent->getTemplateFile());
+        $this->assertSame(str_replace('file:', '', $parentData['tmpl']), $parent->getTemplate()->getTemplateFile());
         $this->assertSame(NULL, $parent->getParent());
 
         $modelData = array(
@@ -70,20 +70,20 @@ class ModelParserTest extends \PHPUnit_Framework_TestCase
             'extends' => 'model.parent',
             'namespace' => 'Branch',
             'dir' => 'branch',
-            'tmpl' => '/my/branchfile.php',
+            'tmpl' => 'file:/my/branchfile.php',
         );
 
-        /** @var $model \Monco\Modeling\Model\ClassModel */
+        /** @var $model \Monco\Modeling\File\ClassModel */
         $model = $this->_parser->parseModel($modelData);
 
-        $this->assertInstanceOf('\\Monco\\Modeling\\Model\\ClassModel', $model);
+        $this->assertInstanceOf('\\Monco\\Modeling\\File\\ClassModel', $model);
         $this->assertSame($modelData['id'], $model->getId());
         $this->assertSame($modelData['name'], $model->getClassName());
         $this->assertSame($modelData['namespace'], $model->getNamespace());
         $this->assertSame($modelData['dir'], $model->getDirectory());
-        $this->assertSame($modelData['tmpl'], $model->getTemplateFile());
+        $this->assertSame(str_replace('file:', '', $modelData['tmpl']), $model->getTemplate()->getTemplateFile());
 
-        $this->assertInstanceOf('\\Monco\\Modeling\\Model\\ClassModel', $model->getParent());
+        $this->assertInstanceOf('\\Monco\\Modeling\\File\\ClassModel', $model->getParent());
         $this->assertSame(NULL, $parent->getParent());
         $this->assertSame($parent, $model->getParent());
     }

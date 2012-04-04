@@ -1,8 +1,8 @@
 <?php
 
-namespace Monco\Modeling\Model;
+namespace Monco\Modeling\File;
 
-class ClassModel
+class ClassModel extends File
 {
     const CLASS_TYPE_INTERFACE  = 'interface';
     const CLASS_TYPE_ABSTRACT   = 'abstract';
@@ -26,22 +26,7 @@ class ClassModel
     /**
      * @var string
      */
-    private $_directory;
-
-    /**
-     * @var string
-     */
     private $_namespace;
-
-    /**
-     * @var string
-     */
-    private $_templateFile;
-
-    /**
-     * @var ClassModel
-     */
-    private $_parent;
 
     /**
      * @param string $ClassType
@@ -77,35 +62,6 @@ class ClassModel
     public function getClassName()
     {
         return $this->_className;
-    }
-
-    /**
-     * @param string $directory
-     * @return ClassModel
-     */
-    public function setDirectory($directory)
-    {
-        $this->_directory = $directory;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDirectory()
-    {
-        return $this->_directory;
-    }
-
-    public function getFullDirectory()
-    {
-        $dir = $this->getDirectory();
-        if (strpos($dir, DIRECTORY_SEPARATOR) === 0) {
-            return $dir;
-        } elseif ($this->getParent()) {
-            $dir = $this->getParent()->getFullDirectory().$dir;
-        }
-        return $dir;
     }
 
     /**
@@ -153,49 +109,5 @@ class ClassModel
             $ns = $this->getParent()->getFullNamespace().'\\'.$ns;
         }
         return $ns;
-    }
-
-    /**
-     * @param string $templateFile
-     * @return ClassModel
-     */
-    public function setTemplateFile($templateFile)
-    {
-        $this->_templateFile = $templateFile;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTemplateFile()
-    {
-        if (!$this->_templateFile && $this->hasParent()) {
-            return $this->getParent()->getTemplateFile();
-        }
-        return $this->_templateFile;
-    }
-
-    /**
-     * @param ClassModel $parent
-     * @return ClassModel
-     */
-    public function setParent($parent)
-    {
-        $this->_parent = $parent;
-        return $this;
-    }
-
-    /**
-     * @return ClassModel
-     */
-    public function getParent()
-    {
-        return $this->_parent;
-    }
-
-    public function hasParent()
-    {
-        return $this->_parent instanceof ClassModel;
     }
 }

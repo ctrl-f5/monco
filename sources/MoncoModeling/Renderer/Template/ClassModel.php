@@ -5,7 +5,7 @@ namespace Monco\Modeling\Renderer\Template;
 class ClassModel
 {
     /**
-     * @var \Monco\Modeling\Model\ClassModel
+     * @var \Monco\Modeling\File\ClassModel
      */
     protected $_classModel;
 
@@ -28,7 +28,7 @@ class ClassModel
     }
 
     /**
-     * @param \Monco\Modeling\Model\ClassModel $classModel
+     * @param \Monco\Modeling\File\ClassModel $classModel
      * @return ClassModel
      */
     public function setClassModel($classModel)
@@ -38,7 +38,7 @@ class ClassModel
     }
 
     /**
-     * @return \Monco\Modeling\Model\ClassModel
+     * @return \Monco\Modeling\File\ClassModel
      */
     public function getClassModel()
     {

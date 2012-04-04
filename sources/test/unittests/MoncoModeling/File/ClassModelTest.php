@@ -1,17 +1,17 @@
 <?php
 
-namespace Test\Monco\Modeling\Model;
+namespace Test\Monco\Modeling\File;
 
 class ClassModelTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Monco\Modeling\Model\ClassModel
+     * @var \Monco\Modeling\File\ClassModel
      */
     protected $_model;
 
     public function setUp()
     {
-        $this->_model = new \Monco\Modeling\Model\ClassModel();
+        $this->_model = new \Monco\Modeling\File\ClassModel();
     }
 
     public function tearDown()
@@ -26,21 +26,21 @@ class ClassModelTest extends \PHPUnit_Framework_TestCase
             'name' => 'Entity',
             'namespace' => 'Container',
             'dir' => 'container',
-            'tmpl' => '/my/file.php',
+            'tmpl' => 'file:/my/file.php',
         );
 
         //fluent interfaces
-        $this->assertInstanceOf('\\Monco\\Modeling\\Model\\ClassModel', $this->_model->setId($data['id']));
-        $this->assertInstanceOf('\\Monco\\Modeling\\Model\\ClassModel', $this->_model->setClassName($data['name']));
-        $this->assertInstanceOf('\\Monco\\Modeling\\Model\\ClassModel', $this->_model->setNamespace($data['namespace']));
-        $this->assertInstanceOf('\\Monco\\Modeling\\Model\\ClassModel', $this->_model->setDirectory($data['dir']));
-        $this->assertInstanceOf('\\Monco\\Modeling\\Model\\ClassModel', $this->_model->setTemplateFile($data['tmpl']));
+        $this->assertInstanceOf('\\Monco\\Modeling\\File\\ClassModel', $this->_model->setId($data['id']));
+        $this->assertInstanceOf('\\Monco\\Modeling\\File\\ClassModel', $this->_model->setClassName($data['name']));
+        $this->assertInstanceOf('\\Monco\\Modeling\\File\\ClassModel', $this->_model->setNamespace($data['namespace']));
+        $this->assertInstanceOf('\\Monco\\Modeling\\File\\ClassModel', $this->_model->setDirectory($data['dir']));
+        $this->assertInstanceOf('\\Monco\\Modeling\\File\\ClassModel', $this->_model->setTemplate($data['tmpl']));
 
         $this->assertEquals($data['id'], $this->_model->getId());
         $this->assertEquals($data['name'], $this->_model->getClassName());
         $this->assertEquals($data['namespace'], $this->_model->getNamespace());
         $this->assertEquals($data['dir'], $this->_model->getDirectory());
-        $this->assertEquals($data['tmpl'], $this->_model->getTemplateFile());
+        $this->assertEquals(str_replace('file:', '', $data['tmpl']), $this->_model->getTemplate()->getTemplateFile());
     }
 
     public function testCanGetFullDirectoryWithParent()
@@ -49,7 +49,7 @@ class ClassModelTest extends \PHPUnit_Framework_TestCase
             'dir' => 'parent'.DIRECTORY_SEPARATOR,
         );
 
-        $parent = new \Monco\Modeling\Model\ClassModel();
+        $parent = new \Monco\Modeling\File\ClassModel();
         $parent->setDirectory($parentData['dir']);
         $this->_model->setParent($parent);
 
@@ -80,7 +80,7 @@ class ClassModelTest extends \PHPUnit_Framework_TestCase
             'dir' => 'parent'.DIRECTORY_SEPARATOR,
         );
 
-        $parent = new \Monco\Modeling\Model\ClassModel();
+        $parent = new \Monco\Modeling\File\ClassModel();
         $parent->setDirectory($parentData['dir']);
         $this->_model->setParent($parent);
 
@@ -88,7 +88,7 @@ class ClassModelTest extends \PHPUnit_Framework_TestCase
             'dir' => 'parent2'.DIRECTORY_SEPARATOR,
         );
 
-        $parent2 = new \Monco\Modeling\Model\ClassModel();
+        $parent2 = new \Monco\Modeling\File\ClassModel();
         $parent2->setDirectory($parentData2['dir']);
         $parent->setParent($parent2);
 
@@ -127,7 +127,7 @@ class ClassModelTest extends \PHPUnit_Framework_TestCase
             'namespace' => '\\Parent',
         );
 
-        $parent = new \Monco\Modeling\Model\ClassModel();
+        $parent = new \Monco\Modeling\File\ClassModel();
         $parent->setNamespace($parentData['namespace']);
         $this->_model->setParent($parent);
 
@@ -158,7 +158,7 @@ class ClassModelTest extends \PHPUnit_Framework_TestCase
             'namespace' => 'Branch',
         );
 
-        $parent = new \Monco\Modeling\Model\ClassModel();
+        $parent = new \Monco\Modeling\File\ClassModel();
         $parent->setNamespace($parentData['namespace']);
         $this->_model->setParent($parent);
 
@@ -166,7 +166,7 @@ class ClassModelTest extends \PHPUnit_Framework_TestCase
             'namespace' => 'Root',
         );
 
-        $parent2 = new \Monco\Modeling\Model\ClassModel();
+        $parent2 = new \Monco\Modeling\File\ClassModel();
         $parent2->setNamespace($parentData2['namespace']);
         $parent->setParent($parent2);
 

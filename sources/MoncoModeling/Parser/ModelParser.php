@@ -77,12 +77,12 @@ class ModelParser
         if (!$this->_modelRepo->hasKey($data['id'])) {
 
             //set all properties except 'extends'
-            $classModel = new \Monco\Modeling\Model\ClassModel();
+            $classModel = new \Monco\Modeling\File\ClassModel();
             $classModel->setId($data['id'])
                 ->setClassName($data['name'])
                 ->setNamespace($data['namespace'])
                 ->setDirectory($data['dir'])
-                ->setTemplateFile($data['tmpl']);
+                ->setTemplate($data['tmpl']);
 
             //put the model in the repo
             $this->_modelRepo->set($data['id'], $classModel);

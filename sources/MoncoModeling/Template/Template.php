@@ -1,6 +1,6 @@
 <?php
 
-namespace Monco\Modeling\Renderer\Template;
+namespace Monco\Modeling\Template;
 
 class Template
 {
@@ -40,28 +40,5 @@ class Template
             return false;
         }
         return true;
-    }
-
-    public function renderClass()
-    {
-        \ob_start();
-        echo '<?php'.PHP_EOL;
-        include($this->getTemplateFile());
-        $content = \ob_get_contents();
-        \ob_end_clean();
-        if (\class_exists('PHP_Beautifier')) {
-            $beauty = new \PHP_Beautifier();
-            $beauty->setInputString($content);
-            $beauty->addFilter(
-                'NewLines',
-                array(
-                    'after' => 'T_DOC_COMMENT'
-                )
-            );
-            $beauty->process();
-            $content = $beauty->get();
-        }
-
-        return $content;
     }
 }

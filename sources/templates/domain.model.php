@@ -1,4 +1,4 @@
-<?php /** @var $class \Monco\Modeling\Model\ClassModel */ ?>
+<?php /** @var $class \Monco\Modeling\File\ClassModel */ ?>
 <?php /** @var $properties \Monco\Modeling\Data\Property[] */ ?>
 
 namespace <?php echo $class->getFullNamespace() ?>;
