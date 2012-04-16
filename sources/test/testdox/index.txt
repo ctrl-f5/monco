@@ -31,6 +31,7 @@
 \Monco\Modeling\Renderer\Renderer
  [x] Can render file
  [x] Can render file with properties
+ [x] Can render file with custom class
 
 \Monco\Config\Config
  [x] Construction

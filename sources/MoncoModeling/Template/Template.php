@@ -17,7 +17,7 @@ class Template
 
     /**
      * @param string $templateFile
-     * @return TemplateModel
+     * @return Template
      */
     public function setTemplateFile($templateFile)
     {

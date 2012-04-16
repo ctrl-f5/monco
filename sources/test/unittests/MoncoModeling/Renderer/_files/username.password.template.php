@@ -1,5 +1,5 @@
 <?php
-/** @var $d \Monco\Modeling\Data\Property */
-foreach ($data as $d) {
+/** @var $template \Monco\Modeling\Template\Template */
+foreach ($template->getData() as $d) {
     echo $d->getName();
 }

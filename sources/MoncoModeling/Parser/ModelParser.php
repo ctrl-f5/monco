@@ -2,7 +2,7 @@
 
 namespace Monco\Modeling\Parser;
 
-class ModelParser
+class ModelParser extends FileParser
 {
     private $_modelRepo;
 
@@ -11,6 +11,7 @@ class ModelParser
     public function __construct(Repo $repo = null)
     {
         if ($repo) $this->_modelRepo = $repo;
+        else $this->_modelRepo = new \Monco\Modeling\Parser\Repo();
 
         $this->_modelDirectories = explode(PATH_SEPARATOR, get_include_path());
     }
@@ -42,6 +43,11 @@ class ModelParser
         $this->_modelDirectories[] = $dir;
     }
 
+    /**
+     * @param $id
+     * @return \Monco\Modeling\File\ClassModel
+     * @throws \Exception
+     */
     public function getModel($id)
     {
         if ($this->_modelRepo->hasKey($id)) {
@@ -52,7 +58,12 @@ class ModelParser
         throw new \Exception("model with id: $id was not found");
     }
 
-    public function parseModel($data)
+    /**
+     * @param $data
+     * @return \Monco\Modeling\File\ClassModel
+     * @throws \Exception
+     */
+    public function parse($data)
     {
         $default = array(
             'id' => null,

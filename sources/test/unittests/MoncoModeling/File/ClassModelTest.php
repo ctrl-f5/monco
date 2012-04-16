@@ -26,7 +26,7 @@ class ClassModelTest extends \PHPUnit_Framework_TestCase
             'name' => 'Entity',
             'namespace' => 'Container',
             'dir' => 'container',
-            'tmpl' => 'file:/my/file.php',
+            'tmpl' => '/my/file.php',
         );
 
         //fluent interfaces
@@ -40,7 +40,7 @@ class ClassModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data['name'], $this->_model->getClassName());
         $this->assertEquals($data['namespace'], $this->_model->getNamespace());
         $this->assertEquals($data['dir'], $this->_model->getDirectory());
-        $this->assertEquals(str_replace('file:', '', $data['tmpl']), $this->_model->getTemplate()->getTemplateFile());
+        $this->assertEquals(str_replace('', '', $data['tmpl']), $this->_model->getTemplate()->getTemplateFile());
     }
 
     public function testCanGetFullDirectoryWithParent()

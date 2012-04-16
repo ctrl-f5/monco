@@ -58,24 +58,40 @@ class File
     public function setTemplate($template)
     {
         if (is_string($template)) {
-            $parts = explode(':', $template);
-            if (count($parts) == 2) {
-                switch ($parts[0]) {
-                    case 'file':
-                        $tmpl = new \Monco\Modeling\Template\Template();
-                        $tmpl->setTemplateFile($parts[1]);
-                        $this->_template = $tmpl;
-                        break;
-                    case 'class':
-                        if (class_exists($parts[1]) && $parts[1] instanceof \Monco\Modeling\Template\Template) {
-                            $class = $parts[1];
-                            $this->_template = new $class();
-                        }
-                        break;
-                }
+            $this->_setTemplateWithFile($template);
+        }
+        if (is_array($template)) {
+            if (!array_key_exists('file', $template)) {
+                throw new \Monco\Exception('template needs a key \'file\'');
             }
+            if (!array_key_exists('class', $template)) {
+                $template['class'] = '\\Monco\\Modeling\\Template\\Template';
+            }
+            $this->_setTemplateWithClass($template['class'], $template['file']);
         }
         return $this;
+    }
+
+    protected function _setTemplateWithFile($file)
+    {
+        $tmpl = new \Monco\Modeling\Template\Template();
+        $tmpl->setTemplateFile($file);
+        $this->_template = $tmpl;
+    }
+
+    protected function _setTemplateWithClass($class, $file)
+    {
+        if (class_exists($class)) {
+            $instance = new $class();
+            if ($instance instanceof \Monco\Modeling\Template\Template) {
+                $this->_template = $instance;
+                $this->_template->setTemplateFile($file);
+            } else {
+                throw new \Monco\Exception('Template class must inherit \\Monco\\Modeling\\Template\\Template: '.$class);
+            }
+        } else {
+            throw new \Monco\Exception('Template class not found: '.$class);
+        }
     }
 
     /**

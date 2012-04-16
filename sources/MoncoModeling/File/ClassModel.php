@@ -29,6 +29,25 @@ class ClassModel extends File
     private $_namespace;
 
     /**
+     * @var \Monco\Modeling\Template\ClassModel
+     */
+    protected $_template;
+
+    /**
+     * @param string|\Monco\Modeling\Template\ClassModel $template
+     * @return ClassModel
+     */
+    public function setTemplate($template)
+    {
+        parent::setTemplate($template);
+        if ($this->_template instanceof \Monco\Modeling\Template\ClassModel) {
+            /** @var $this->_template \Monco\Modeling\Template\ClassModel */
+            $this->_template->setClassModel($this);
+        }
+        return $this;
+    }
+
+    /**
      * @param string $ClassType
      * @return ClassModel
      */

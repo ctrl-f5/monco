@@ -22,19 +22,14 @@ class FileParserTest extends \PHPUnit_Framework_TestCase
     public function testCanParseFile()
     {
         $data = array(
-            'tmpl' => 'file:/my/file.php',
+            'tmpl' => '/my/file.php',
         );
 
         /** @var $model \Monco\Modeling\File\File */
         $model = $this->_parser->parse($data);
 
         $this->assertInstanceOf('\\Monco\\Modeling\\File\\File', $model);
-        $this->assertSame(str_replace('file:', '', $data['tmpl']), $model->getTemplate()->getTemplateFile());
+        $this->assertSame(str_replace('', '', $data['tmpl']), $model->getTemplate()->getTemplateFile());
         $this->assertSame(NULL, $model->getParent());
-    }
-
-    public function testCanParseModelWithParent()
-    {
-        $this->markTestIncomplete();
     }
 }
