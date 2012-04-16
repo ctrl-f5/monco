@@ -13,6 +13,8 @@ class Template
 
     protected $_requiredOptions = array();
 
+    protected $_data = array();
+
     /**
      * @param string $templateFile
      * @return TemplateModel
@@ -40,5 +42,15 @@ class Template
             return false;
         }
         return true;
+    }
+
+    public function setData($data = array())
+    {
+        $this->_data = $data;
+    }
+
+    public function getData()
+    {
+        return $this->_data;
     }
 }

@@ -19,23 +19,45 @@ class RendererTest extends \PHPUnit_Framework_TestCase
         $this->_renderer = null;
     }
 
-    public function testCanRenderClass()
+    public function testCanRenderFile()
     {
+        $dir = __DIR__.DIRECTORY_SEPARATOR;
         $data = array(
             'id' => 'model.entity',
             'name' => 'Entity',
-            //'abstract' => null,
-            //'extends' => null,
             'namespace' => 'Container',
             'subNamespace' => 'Box',
             'dir' => 'container',
             'subDir' => 'box',
-            'tmpl' => '/home/nicky/workspace/monco/lab/sources/templates/domain.model.php',
+            'tmpl' => 'file:'.$dir."_files".DIRECTORY_SEPARATOR.'empty.template',
         );
 
         $parser = new \Monco\Modeling\Parser\ModelParser(
             new \Monco\Modeling\Parser\Repo()
         );
+        /** @var $model \Monco\Modeling\File\ClassModel */
+        $model = $parser->parseModel($data);
+
+        $this->assertTrue(is_string($this->_renderer->renderTemplate($model->getTemplate())));
+    }
+
+    public function testCanRenderFileWithProperties()
+    {
+        $dir = __DIR__.DIRECTORY_SEPARATOR;
+        $data = array(
+            'id' => 'model.entity',
+            'name' => 'Entity',
+            'namespace' => 'Container',
+            'subNamespace' => 'Box',
+            'dir' => 'container',
+            'subDir' => 'box',
+            'tmpl' => 'file:'.$dir."_files".DIRECTORY_SEPARATOR.'username.password.template.php',
+        );
+
+        $parser = new \Monco\Modeling\Parser\ModelParser(
+            new \Monco\Modeling\Parser\Repo()
+        );
+        /** @var $model \Monco\Modeling\File\ClassModel */
         $model = $parser->parseModel($data);
 
         $data = array(
@@ -52,8 +74,8 @@ class RendererTest extends \PHPUnit_Framework_TestCase
         $properties[] = new \Monco\Modeling\Data\Property();
         $properties[1]->parseData($data);
 
-        //TODO: fix rendering
-        return;
-        $this->assertTrue(is_string($this->_renderer->render($model, $properties)));
+        $result = $this->_renderer->renderTemplate($model->getTemplate(), $properties);
+        $this->assertTrue(is_string($result));
+        $this->assertSame('userNamepassword', $result);
     }
 }

@@ -21,14 +21,13 @@ class Renderer
         }
     }
 
-    public function renderTemplate(\Monco\Modeling\Template\Template $template = null)
+    public function renderTemplate(\Monco\Modeling\Template\Template $template = null, $data = array())
     {
         \ob_start();
-        echo '<?php'.PHP_EOL;
         include($template->getTemplateFile());
         $content = \ob_get_contents();
         \ob_end_clean();
-        $content = $this->beautifyPhpString($content);
+        //$content = $this->beautifyPhpString($content);
 
         return $content;
     }
