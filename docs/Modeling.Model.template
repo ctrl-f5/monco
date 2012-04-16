@@ -1,4 +1,0 @@
-== Model Template
-
-the model template is the file creating the actual result,
-it uses the passed TemplateModel to generate the desired result
