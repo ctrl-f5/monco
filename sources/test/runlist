@@ -1,0 +1,2 @@
+phpunit --testdox-text ./testdox/index.txt
+cat testdox/index.txt

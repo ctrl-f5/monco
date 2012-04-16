@@ -1,0 +1,37 @@
+\Monco\Modeling\Data\Factory
+ [x] Can get default value
+
+\Monco\Modeling\Data\Property
+ [x] Can parse data with minimum amount keys
+ [x] Can parse data with name key
+ [x] Can parse data with options
+ [x] Can get camel cased name
+ [x] Can get pascal cased name
+ [x] Can get getter declaration
+ [x] Can get setter declaration
+
+\Monco\Modeling\File\ClassModel
+ [x] Model without parent
+ [x] Can get full directory with parent
+ [x] Can get full directory with multiple parents
+ [x] Can get full namespace with parent
+ [x] Can get full namespace with multiple parents
+
+\Monco\Modeling\Parser\FileParser
+ [x] Can parse file
+ [ ] Can parse model with parent
+
+\Monco\Modeling\Parser\ModelParser
+ [x] Can parse model
+ [x] Can parse model with parent
+
+\Monco\Modeling\Parser\PropertyParser
+ [x] Can parse properties
+
+\Monco\Modeling\Renderer\Renderer
+ [x] Can render file
+ [x] Can render file with properties
+
+\Monco\Config\Config
+ [x] Construction
+
